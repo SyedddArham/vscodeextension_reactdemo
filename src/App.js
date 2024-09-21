@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useState } from 'react';  // Import useState
+import Container from './components/Container';
+import Grid from './components/Grid';
+import Card from './components/Card';
+import NavBar from './components/NavBar';
+import Sidebar from './components/Sidebar';
+import Footer from './components/Footer';
+import Modal from './components/Modal'; // Import Modal
+import { containerData, gridData, cardData, navBarData, sidebarData, footerData, modalData } from './config/dynamicStyles';
 
-function App() {
+const App = () => {
+  const { style, text } = containerData;
+  const [isModalVisible, setModalVisible] = useState(false);  // Correct usage of useState
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div style={{ padding: '20px' }}>
+      
+      <NavBar data={navBarData} />
+      <Sidebar data={sidebarData} />
+      <Container style={style}>
+        <p
+          style={{
+            color: text.color,
+            fontSize: text.fontSize,
+            textAlign: text.textAlign,
+            fontWeight: text.fontWeight,
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          {text.content}
+        </p>
+      </Container>
+      <Grid data={gridData} />
+      <Card data={cardData} />
+      <button onClick={() => setModalVisible(true)}>Open Modal</button>
+      <Modal
+        data={modalData}
+        isVisible={isModalVisible}
+        onClose={() => setModalVisible(false)}
+      />
+      <Footer data={footerData} />
     </div>
   );
-}
+};
 
 export default App;
